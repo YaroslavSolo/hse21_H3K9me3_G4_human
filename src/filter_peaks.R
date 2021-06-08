@@ -29,7 +29,7 @@ ggplot(bed_df) +
   geom_histogram() +
   ggtitle(NAME, subtitle = sprintf('Number of peaks = %s', nrow(bed_df))) +
   theme_bw()
-ggsave(paste0('filter_peaks.', NAME, '.filtered.hist.pdf'), path = OUT_DIR)
+ggsave(paste0('filter_peaks.', NAME, '.filtered.hist.png'), path = OUT_DIR)
 
 bed_df %>%
   select(-len) %>%
