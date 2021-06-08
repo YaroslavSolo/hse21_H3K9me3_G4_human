@@ -7,7 +7,7 @@
 
 UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
-## Выполнение проекта
+## Анализ пиков гистоновой метки
 Скачиваем необходимые файлы
 
 `wget https://www.encodeproject.org/files/ENCFF073SPO/@@download/ENCFF073SPO.bed.gz`
@@ -59,6 +59,8 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/genome_browser_merge.png)
 
+## Анализ участков вторичной структуры ДНК
+
 Скачиваем файл со вторичной структурой ДНК (квадруплексы)
 
 `wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE99nnn/GSE99205/suppl/GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed.gz`
@@ -67,7 +69,7 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
 `cat GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed | tr -d '\r' > G4_ChIP_peaks.clean.bed`
 
-### Распределение длин участков вторичной стр-ры ДНК
+### Распределение длин участков квадруплексов
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.G4_ChIP_peaks.clean.plotAnnoPie.png)
 
@@ -75,7 +77,9 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.G4ChipIntersect.plotAnnoPie.png)
 
-Находим пересечения гистоновой метки и структурами ДНК
+## Анализ пересечений гистоновой метки и квадруплексов
+
+Находим пересечения между гистоновой меткой и структурами ДНК
 
 `bedtools intersect -a G4_ChIP_peaks.clean -b H3K9me3_H9.merge.hg19 > G4ChipIntersect.bed`
 
@@ -87,11 +91,13 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/genome_browser_intersect.png)
 
-Ассоциируем полученные пересечения с ближайшими генами с помощью R-библиотеки ChIPpeakAnno
+Ассоциируем полученные пересечения с ближайшими генами с помощью R-библиотеки ChIPpeakAnno  
 Скрипт [ChIPpeakAnno.R](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/src/ChIPpeakAnno.R)
 
 Всего удалось ассоциировать 499 пиков. [Ассоциации пиков](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/data/G4ChipIntersect.genes.txt)  
 Общее число уникальных генов - 463. [Список генов](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/data/G4ChipIntersect.genes_uniq.txt)
+
+## GO-анализ
 
 С помощью [Panther](http://pantherdb.org/) проведем GO анализ
  
