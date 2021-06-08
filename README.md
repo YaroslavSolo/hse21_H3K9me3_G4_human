@@ -63,6 +63,10 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
 `wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE99nnn/GSE99205/suppl/GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed.gz`
 
+Удаляем символ переноса каретки в конце каждой строки, чтобы `bedtools intersect` отработал корректно
+
+`cat GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed | tr -d '\r' > G4_ChIP_peaks.clean.bed`
+
 ### Распределение длин участков вторичной стр-ры ДНК
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.G4_ChIP_peaks.clean.plotAnnoPie.png)
@@ -77,7 +81,7 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
 ### Распределения длин пересечений гистоновой метки и структур ДНК
 
-![alt-text]()
+![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.G4ChipIntersect.png)
 
 Визуализируем в геномном браузере исходные участки структуры ДНК, а также их пересечения с гистоновой меткой
 
