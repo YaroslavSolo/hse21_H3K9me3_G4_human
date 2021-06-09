@@ -30,12 +30,12 @@ liftOver H3K9me3_H9.ENCFF073SPO.hg38.bed hg38ToHg19.over.chain.gz H3K9me3_H9.ENC
 
 liftOver H3K9me3_H9.ENCFF305RWK.hg38.bed hg38ToHg19.over.chain.gz H3K9me3_H9.ENCFF305RWK.hg19.bed H3K9me3_H9.ENCFF305RWK.unmapped.bed
 ```
-### Гистограмма длин участков для каждого эксперимента до переноса на Hg19
+### Распределение длин участков для каждого эксперимента до переноса на Hg19
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.H3K9me3_H9.ENCFF073SPO.hg38.png)
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.H3K9me3_H9.ENCFF305RWK.hg38.png)
 
-### Гистограмма длин участков для каждого эксперимента после переноса на Hg19 
+### Распределение длин участков для каждого эксперимента после переноса на Hg19 
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.H3K9me3_H9.ENCFF073SPO.hg19.png)
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.H3K9me3_H9.ENCFF305RWK.hg19.png)
@@ -46,10 +46,11 @@ liftOver H3K9me3_H9.ENCFF305RWK.hg38.bed hg38ToHg19.over.chain.gz H3K9me3_H9.ENC
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/filter_peaks.H3K9me3_H9.ENCFF305RWK.hg19.filtered.hist.png)
 
 ### Расположение пик гистоновой метки относительно аннотированных генов  
-Построено с помощью [chip_seeker.R](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/src/chip_seeker.R)
+Построено с помощью [chip_seeker.R](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/src/chip_seeker.R)  
+Для ENCFF073SPO и ENCFF305RWK соответственно
 
-![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.H3K9me3_H9.ENCFF073SPO.hg19.filtered.plotAnnoPie.png)
-![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.H3K9me3_H9.ENCFF305RWK.hg19.filtered.plotAnnoPie.png)
+![ENCFF073SPO](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.H3K9me3_H9.ENCFF073SPO.hg19.filtered.plotAnnoPie.png)
+![ENCFF305RWK](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.H3K9me3_H9.ENCFF305RWK.hg19.filtered.plotAnnoPie.png)
 
 Объединяем два набора отфильтрованных ChIP-seq пиков с помощью утилиты `bedtools merge`  
 Для запуска команды необходимо отсортировать единый .bed файл
@@ -72,7 +73,7 @@ cat GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed | tr -d '\r' > G4_ChIP
 ```
 ### Распределение длин участков квадруплексов
 
-![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.G4_ChIP_peaks.clean.plotAnnoPie.png)
+![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.G4_ChIP_peaks.clean.png)
 
 ### Расположение квадруплексов относительно аннотированных генов
 
@@ -84,9 +85,13 @@ cat GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed | tr -d '\r' > G4_ChIP
 ```
 bedtools intersect -a G4_ChIP_peaks.clean -b H3K9me3_H9.merge.hg19 > G4ChipIntersect.bed
 ```
-### Распределения длин пересечений гистоновой метки и структур ДНК
+### Распределение длин пересечений гистоновой метки и структур ДНК
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.G4ChipIntersect.png)
+
+### Расположение пересечений гистоновой метки и квадруплексов относительно аннотированных генов
+
+![alt-text](https://github.com/YaroslavSolo/hse21_H3K9me3_G4_human/blob/main/images/chip_seeker.G4ChipIntersect.plotAnnoPie.png)
 
 Визуализируем в геномном браузере исходные участки структуры ДНК, а также их пересечения с гистоновой меткой
 
