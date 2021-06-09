@@ -10,26 +10,26 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
 ## Анализ пиков гистоновой метки
 Скачиваем необходимые файлы
+```
+wget https://www.encodeproject.org/files/ENCFF073SPO/@@download/ENCFF073SPO.bed.gz
 
-`wget https://www.encodeproject.org/files/ENCFF073SPO/@@download/ENCFF073SPO.bed.gz`
-
-`wget https://www.encodeproject.org/files/ENCFF305RWK/@@download/ENCFF305RWK.bed.gz`
-
+wget https://www.encodeproject.org/files/ENCFF305RWK/@@download/ENCFF305RWK.bed.gz
+```
 Оставляем первые пять столбцов
+```
+zcat ENCFF073SPO.bed.gz | cut -f1-5 > H3K9me3_H9.ENCFF073SPO.hg38.bed
 
-`zcat ENCFF073SPO.bed.gz | cut -f1-5 > H3K9me3_H9.ENCFF073SPO.hg38.bed`
-
-`zcat ENCFF305RWK.bed.gz | cut -f1-5 > H3K9me3_H9.ENCFF305RWK.hg38.bed`
-
+zcat ENCFF305RWK.bed.gz | cut -f1-5 > H3K9me3_H9.ENCFF305RWK.hg38.bed
+```
 Приводим координаты ChIP-seq пиков к нужной версии генома (Hg38 -> Hg19)  
 Для этого скачаем файл, необходимый для `liftOver`
+```
+wget https://hgdownload.cse.ucsc.edu/goldenpath/hg38/liftOver/hg38ToHg19.over.chain.gz
 
-`wget https://hgdownload.cse.ucsc.edu/goldenpath/hg38/liftOver/hg38ToHg19.over.chain.gz`
+liftOver H3K9me3_H9.ENCFF073SPO.hg38.bed hg38ToHg19.over.chain.gz H3K9me3_H9.ENCFF073SPO.hg19.bed H3K9me3_H9.ENCFF073SPO.unmapped.bed
 
-`liftOver H3K9me3_H9.ENCFF073SPO.hg38.bed hg38ToHg19.over.chain.gz H3K9me3_H9.ENCFF073SPO.hg19.bed H3K9me3_H9.ENCFF073SPO.unmapped.bed`
-
-`liftOver H3K9me3_H9.ENCFF305RWK.hg38.bed hg38ToHg19.over.chain.gz H3K9me3_H9.ENCFF305RWK.hg19.bed H3K9me3_H9.ENCFF305RWK.unmapped.bed`
-
+liftOver H3K9me3_H9.ENCFF305RWK.hg38.bed hg38ToHg19.over.chain.gz H3K9me3_H9.ENCFF305RWK.hg19.bed H3K9me3_H9.ENCFF305RWK.unmapped.bed
+```
 ### Гистограмма длин участков для каждого эксперимента до переноса на Hg19
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.H3K9me3_H9.ENCFF073SPO.hg38.png)
@@ -53,9 +53,9 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 
 Объединяем два набора отфильтрованных ChIP-seq пиков с помощью утилиты `bedtools merge`  
 Для запуска команды необходимо отсортировать единый .bed файл
-
-`cat *.filtered.bed | sort -k1,1 -k2,2n | bedtools merge > H3K9me3_H9.merge.hg19.bed`
-
+```
+cat *.filtered.bed | sort -k1,1 -k2,2n | bedtools merge > H3K9me3_H9.merge.hg19.bed
+```
 Визуализируем исходные два набора ChIP-seq пиков, а также их объединение в геномном браузере, и проверим корректность работы bedtools merge
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/genome_browser_merge.png)
@@ -63,13 +63,13 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 ## Анализ участков вторичной структуры ДНК
 
 Скачиваем файл со вторичной структурой ДНК (квадруплексы)
-
-`wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE99nnn/GSE99205/suppl/GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed.gz`
-
+```
+wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE99nnn/GSE99205/suppl/GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed.gz
+```
 Удаляем символ переноса каретки в конце каждой строки, чтобы `bedtools intersect` отработал корректно
-
-`cat GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed | tr -d '\r' > G4_ChIP_peaks.clean.bed`
-
+```
+cat GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed | tr -d '\r' > G4_ChIP_peaks.clean.bed
+```
 ### Распределение длин участков квадруплексов
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.G4_ChIP_peaks.clean.plotAnnoPie.png)
@@ -81,9 +81,9 @@ UCSC GenomeBrowser session: https://genome-euro.ucsc.edu/s/Oureal/H3K9me3_H9
 ## Анализ пересечений гистоновой метки и квадруплексов
 
 Находим пересечения между гистоновой меткой и структурами ДНК
-
-`bedtools intersect -a G4_ChIP_peaks.clean -b H3K9me3_H9.merge.hg19 > G4ChipIntersect.bed`
-
+```
+bedtools intersect -a G4_ChIP_peaks.clean -b H3K9me3_H9.merge.hg19 > G4ChipIntersect.bed
+```
 ### Распределения длин пересечений гистоновой метки и структур ДНК
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/len_hist.G4ChipIntersect.png)
