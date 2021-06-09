@@ -74,9 +74,9 @@ cat GSE99205_common_HaCaT_G4_ChIP_peaks_RNase_treated.bed | tr -d '\r' > G4_ChIP
 
 ![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.G4_ChIP_peaks.clean.plotAnnoPie.png)
 
-###  Расположение квадруплексов относительно аннотированных генов
+### Расположение квадруплексов относительно аннотированных генов
 
-![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.G4ChipIntersect.plotAnnoPie.png)
+![alt-text](https://raw.githubusercontent.com/YaroslavSolo/hse21_H3K9me3_G4_human/main/images/chip_seeker.G4_ChIP_peaks.clean.plotAnnoPie.png)
 
 ## Анализ пересечений гистоновой метки и квадруплексов
 
